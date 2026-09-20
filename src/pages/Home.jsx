@@ -109,7 +109,7 @@ export default function HomePage() {
   ========================================================= */
 
   const API_URL =
-    "http://localhost:5000/api/callback";
+    "https://superguard-isleworth-backend.vercel.app/api/callback";
 
   /* =========================================================
      SERVICES
