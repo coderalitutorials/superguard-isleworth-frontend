@@ -1800,6 +1800,432 @@
 
 
 
+// import React, { useEffect, useState } from "react";
+// import { Link, NavLink } from "react-router-dom";
+// import {
+//   ArrowUpRight,
+//   ChevronDown,
+//   ChevronRight,
+//   MapPin,
+//   Menu,
+//   Phone,
+//   ShieldCheck,
+//   X,
+// } from "lucide-react";
+
+// export default function Navbar() {
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
+
+//   const LOCAL = {
+//     company: "Superguard Services  Isleworth",
+//     area: "Isleworth",
+//     city: "London",
+//     postcode: "TW7 7HG",
+//     streetAddress: "71 Talbot Rd",
+//     fullAddress: "71 Talbot Rd, Isleworth TW7 7HG, United Kingdom",
+//     phoneDisplay: "7405 940152",
+//     phoneTel: "+4474059401527",
+//     email: "info@superguardisleworth.uk",
+//   };
+
+//   const menuItems = [
+//     { label: "Home", path: "/" },
+//     { label: "Services", path: "/services" },
+//     { label: "About Us", path: "/about-us" },
+//     { label: "Contact", path: "/contact-us" },
+//   ];
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setIsScrolled(window.scrollY > 35);
+//     };
+
+//     handleScroll();
+
+//     window.addEventListener("scroll", handleScroll, {
+//       passive: true,
+//     });
+
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     document.body.style.overflow = menuOpen ? "hidden" : "";
+
+//     return () => {
+//       document.body.style.overflow = "";
+//     };
+//   }, [menuOpen]);
+
+//   const desktopNavClass = ({ isActive }) =>
+//     `relative flex items-center gap-1 px-4 py-2.5 text-[11px] font-extrabold uppercase tracking-[0.13em] transition-all duration-300 ${
+//       isActive
+//         ? "text-white after:absolute after:-bottom-1 after:left-4 after:right-4 after:h-[2px] after:rounded-full after:bg-white"
+//         : "text-white/70 hover:text-white"
+//     }`;
+
+//   const mobileNavClass = ({ isActive }) =>
+//     `group flex items-center justify-between border-b border-white/15 py-5 transition-all duration-300 ${
+//       isActive ? "text-white" : "text-white/65 hover:text-white"
+//     }`;
+
+//   return (
+//     <>
+//       <header
+//         itemScope
+//         itemType="https://schema.org/PestControl"
+//         className="fixed left-0 top-0 z-50 w-full"
+//       >
+//         <meta itemProp="name" content={LOCAL.company} />
+//         <meta itemProp="telephone" content={LOCAL.phoneDisplay} />
+//         <meta
+//           itemProp="areaServed"
+//           content={`${LOCAL.area}, ${LOCAL.city}`}
+//         />
+
+//         {/* =========================================================
+//             TOP LOCATION STRIP
+//         ========================================================= */}
+//         <div
+//           className={`hidden bg-[#6055A6] text-white lg:block transition-all duration-300 ${
+//             isScrolled ? "h-0 overflow-hidden opacity-0" : "h-9 opacity-100"
+//           }`}
+//         >
+//           <div className="mx-auto flex h-full max-w-[1500px] items-center justify-between px-8">
+//             <div className="flex items-center gap-2">
+//               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10">
+//                 <ShieldCheck size={11} strokeWidth={2.5} />
+//               </span>
+
+//               <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/80">
+//                 Professional Pest Control in Isleworth
+//               </span>
+//             </div>
+
+//             <div className="flex items-center gap-6">
+//               <div className="flex items-center gap-2 text-[10px] font-semibold text-white/80">
+//                 <MapPin size={12} strokeWidth={2.5} />
+
+//                 <span
+//                   itemProp="address"
+//                   itemScope
+//                   itemType="https://schema.org/PostalAddress"
+//                 >
+//                   <span itemProp="streetAddress">
+//                     {LOCAL.streetAddress}
+//                   </span>
+//                   {", "}
+//                   <span itemProp="addressLocality">{LOCAL.city}</span>{" "}
+//                   <span itemProp="postalCode">{LOCAL.postcode}</span>
+//                 </span>
+//               </div>
+
+//               <a
+//                 href={`tel:${LOCAL.phoneTel}`}
+//                 className="flex items-center gap-2 border-l border-white/20 pl-6 text-[10px] font-extrabold transition-colors hover:text-white/70"
+//               >
+//                 <Phone size={12} />
+//                 {LOCAL.phoneDisplay}
+//               </a>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* =========================================================
+//             MAIN NAVIGATION
+//         ========================================================= */}
+//         <div
+//           className={`transition-all duration-500 ${
+//             isScrolled ? "pt-0" : "pt-3 lg:pt-4"
+//           }`}
+//         >
+//           <div
+//             className={`mx-auto max-w-[1500px] transition-all duration-500 ${
+//               isScrolled ? "" : "px-3 sm:px-5 lg:px-8"
+//             }`}
+//           >
+//             <nav
+//               aria-label="Main navigation"
+//               className={`relative flex h-[72px] items-center justify-between overflow-hidden bg-[#6055A6] px-4 text-white transition-all duration-500 sm:px-6 lg:h-[82px] lg:px-8 ${
+//                 isScrolled
+//                   ? "shadow-2xl shadow-[#30276c]/30"
+//                   : "rounded-2xl shadow-xl shadow-[#30276c]/20"
+//               }`}
+//             >
+//               {/* Decorative background element */}
+//               <div className="pointer-events-none absolute -right-20 -top-24 h-56 w-56 rounded-full border-[35px] border-white/[0.035]" />
+
+//               <div className="pointer-events-none absolute -bottom-28 left-[30%] h-48 w-48 rounded-full border-[28px] border-white/[0.025]" />
+
+//               {/* =====================================================
+//                   LOGO
+//               ===================================================== */}
+//               <Link
+//                 to="/"
+//                 onClick={() => setMenuOpen(false)}
+//                 aria-label={`${LOCAL.company} homepage`}
+//                 className="relative z-10 flex shrink-0 items-center gap-3"
+//               >
+//                 <div className="flex h-[48px] w-[58px] items-center justify-center rounded-lg bg-white p-1 shadow-md transition-transform duration-300 hover:scale-105">
+//                   <img
+//                     src="/images/superguard-logo.webp"
+//                     alt={`${LOCAL.company} logo`}
+//                     className="h-full w-full object-contain"
+//                     loading="eager"
+//                   />
+//                 </div>
+
+//                 <div className="hidden sm:block">
+//                   <div className="mb-1 flex items-center gap-2">
+//                     <span className="h-1.5 w-1.5 rounded-full bg-white" />
+
+//                     <span className="text-[8px] font-bold uppercase tracking-[0.22em] text-white/65">
+//                       West Wickham
+//                     </span>
+//                   </div>
+
+//                   <span
+//                     itemProp="name"
+//                     className="block text-[13px] font-black uppercase leading-none tracking-tight text-white lg:text-[14px]"
+//                   >
+//                     Superguard Services
+//                   </span>
+//                 </div>
+//               </Link>
+
+//               {/* =====================================================
+//                   DESKTOP NAVIGATION
+//               ===================================================== */}
+//               <div className="relative z-10 hidden items-center xl:flex">
+//                 {menuItems.map((item, index) => (
+//                   <React.Fragment key={item.path}>
+//                     <NavLink
+//                       to={item.path}
+//                       className={desktopNavClass}
+//                     >
+//                       {item.label}
+//                     </NavLink>
+
+//                     {index < menuItems.length - 1 && (
+//                       <span className="h-1 w-1 rounded-full bg-white/20" />
+//                     )}
+//                   </React.Fragment>
+//                 ))}
+//               </div>
+
+//               {/* =====================================================
+//                   RIGHT SIDE ACTION
+//               ===================================================== */}
+//               <div className="relative z-10 hidden items-center gap-4 md:flex">
+//                 <a
+//                   href={`tel:${LOCAL.phoneTel}`}
+//                   className="hidden items-center gap-2 text-[11px] font-extrabold text-white/85 transition-colors hover:text-white 2xl:flex"
+//                 >
+//                   <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20">
+//                     <Phone size={13} />
+//                   </span>
+
+//                   <span>{LOCAL.phoneDisplay}</span>
+//                 </a>
+
+//                 <Link
+//                   to="/contact-us"
+//                   className="group flex items-center gap-3 bg-white px-5 py-3 text-[10px] font-black uppercase tracking-[0.13em] text-[#6055A6] transition-all duration-300 hover:bg-[#17141b] hover:text-white"
+//                 >
+//                   <span>Get a Quote</span>
+
+//                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#6055A6]/10 transition-transform duration-300 group-hover:translate-x-1">
+//                     <ArrowUpRight size={12} strokeWidth={3} />
+//                   </span>
+//                 </Link>
+//               </div>
+
+//               {/* =====================================================
+//                   MOBILE MENU BUTTON
+//               ===================================================== */}
+//               <button
+//                 type="button"
+//                 onClick={() => setMenuOpen(true)}
+//                 aria-label="Open navigation menu"
+//                 aria-expanded={menuOpen}
+//                 className="relative z-10 flex h-11 w-11 items-center justify-center border border-white/20 bg-white/10 text-white transition-all duration-300 hover:bg-white hover:text-[#6055A6] active:scale-95 xl:hidden"
+//               >
+//                 <Menu size={20} strokeWidth={2.5} />
+//               </button>
+//             </nav>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* =========================================================
+//           MOBILE MENU
+//       ========================================================= */}
+
+//       <div
+//         onClick={() => setMenuOpen(false)}
+//         className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-all duration-500 xl:hidden ${
+//           menuOpen
+//             ? "visible opacity-100"
+//             : "invisible opacity-0"
+//         }`}
+//       />
+
+//       <aside
+//         className={`fixed inset-0 z-[70] flex h-full w-full flex-col bg-[#6055A6] text-white transition-transform duration-500 xl:hidden ${
+//           menuOpen
+//             ? "translate-y-0"
+//             : "translate-y-full"
+//         }`}
+//       >
+//         {/* Decorative circles */}
+//         <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full border-[50px] border-white/[0.035]" />
+
+//         <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full border-[55px] border-white/[0.025]" />
+
+//         <div className="relative z-10 flex h-full flex-col px-6 py-6">
+//           {/* =====================================================
+//               MOBILE HEADER
+//           ===================================================== */}
+//           <div className="flex items-center justify-between border-b border-white/15 pb-5">
+//             <Link
+//               to="/"
+//               onClick={() => setMenuOpen(false)}
+//               className="flex items-center gap-3"
+//             >
+//               <div className="flex h-11 w-12 items-center justify-center rounded-lg bg-white p-1">
+//                 <img
+//                   src="/images/superguard-logo.webp"
+//                   alt={`${LOCAL.company} logo`}
+//                   className="h-full w-full object-contain"
+//                 />
+//               </div>
+
+//               <div>
+//                 <span className="block text-[8px] font-bold uppercase tracking-[0.2em] text-white/60">
+//                   West Wickham
+//                 </span>
+
+//                 <span className="block text-xs font-black uppercase">
+//                   Superguard Services
+//                 </span>
+//               </div>
+//             </Link>
+
+//             <button
+//               type="button"
+//               onClick={() => setMenuOpen(false)}
+//               aria-label="Close menu"
+//               className="flex h-10 w-10 items-center justify-center border border-white/20 bg-white/10 transition hover:bg-white hover:text-[#6055A6]"
+//             >
+//               <X size={18} strokeWidth={2.5} />
+//             </button>
+//           </div>
+
+//           {/* =====================================================
+//               MOBILE INTRO
+//           ===================================================== */}
+//           <div className="mt-8">
+//             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/55">
+//               Local Pest Control Specialists
+//             </span>
+
+//             <h2 className="mt-2 max-w-sm text-3xl font-black leading-[1.05] tracking-tight">
+//               Pest control for homes and businesses in{" "}
+//               <span className="text-white/60">West Wickham.</span>
+//             </h2>
+//           </div>
+
+//           {/* =====================================================
+//               MOBILE LINKS
+//           ===================================================== */}
+//           <div className="mt-8">
+//             {menuItems.map((item) => (
+//               <NavLink
+//                 key={item.path}
+//                 to={item.path}
+//                 onClick={() => setMenuOpen(false)}
+//                 className={mobileNavClass}
+//               >
+//                 <span className="text-lg font-extrabold">
+//                   {item.label}
+//                 </span>
+
+//                 <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:bg-white group-hover:text-[#6055A6]">
+//                   <ChevronRight size={15} />
+//                 </span>
+//               </NavLink>
+//             ))}
+//           </div>
+
+//           {/* =====================================================
+//               MOBILE CONTACT AREA
+//           ===================================================== */}
+//           <div className="mt-auto pt-8">
+//             <div className="border border-white/15 bg-white/[0.06] p-4">
+//               <div className="flex items-start gap-3">
+//                 <MapPin
+//                   size={17}
+//                   className="mt-0.5 shrink-0 text-white"
+//                 />
+
+//                 <address className="not-italic text-[11px] font-semibold leading-relaxed text-white/70">
+//                   {LOCAL.fullAddress}
+//                 </address>
+//               </div>
+
+//               <a
+//                 href={`tel:${LOCAL.phoneTel}`}
+//                 className="mt-3 flex items-center justify-between bg-white p-3 text-[#6055A6] transition hover:bg-[#17141b] hover:text-white"
+//               >
+//                 <span className="flex items-center gap-3">
+//                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#6055A6] text-white">
+//                     <Phone size={13} />
+//                   </span>
+
+//                   <span className="text-xs font-black">
+//                     {LOCAL.phoneDisplay}
+//                   </span>
+//                 </span>
+
+//                 <ArrowUpRight size={15} />
+//               </a>
+
+//               <Link
+//                 to="/contact-us"
+//                 onClick={() => setMenuOpen(false)}
+//                 className="mt-3 flex items-center justify-center gap-2 bg-white py-3.5 text-[10px] font-black uppercase tracking-[0.13em] text-[#6055A6] transition hover:bg-[#17141b] hover:text-white"
+//               >
+//                 Request Pest Control
+//                 <ArrowUpRight size={14} />
+//               </Link>
+//             </div>
+
+//             <div className="mt-4 flex items-center justify-between text-[8px] font-bold uppercase tracking-[0.15em] text-white/35">
+//               <span>Superguard Services</span>
+//               <span>West Wickham • London</span>
+//             </div>
+//           </div>
+//         </div>
+//       </aside>
+//     </>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -1818,14 +2244,14 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const LOCAL = {
-    company: "Superguard Services  Isleworth",
+    company: "SuperGuard Isleworth",
     area: "Isleworth",
     city: "London",
     postcode: "TW7 7HG",
     streetAddress: "71 Talbot Rd",
     fullAddress: "71 Talbot Rd, Isleworth TW7 7HG, United Kingdom",
-    phoneDisplay: "7405 940152",
-    phoneTel: "+4474059401527",
+    phoneDisplay: "+44 7405 940152",
+    phoneTel: "+447405940152",
     email: "info@superguardisleworth.uk",
   };
 
@@ -1918,7 +2344,8 @@ export default function Navbar() {
                     {LOCAL.streetAddress}
                   </span>
                   {", "}
-                  <span itemProp="addressLocality">{LOCAL.city}</span>{" "}
+                  <span itemProp="addressLocality">{LOCAL.area}</span>{" "}
+                  <span itemProp="addressRegion">{LOCAL.city}</span>{" "}
                   <span itemProp="postalCode">{LOCAL.postcode}</span>
                 </span>
               </div>
@@ -1983,7 +2410,7 @@ export default function Navbar() {
                     <span className="h-1.5 w-1.5 rounded-full bg-white" />
 
                     <span className="text-[8px] font-bold uppercase tracking-[0.22em] text-white/65">
-                      West Wickham
+                      Isleworth
                     </span>
                   </div>
 
@@ -1991,7 +2418,7 @@ export default function Navbar() {
                     itemProp="name"
                     className="block text-[13px] font-black uppercase leading-none tracking-tight text-white lg:text-[14px]"
                   >
-                    Superguard Services
+                    SuperGuard Isleworth
                   </span>
                 </div>
               </Link>
@@ -2105,11 +2532,11 @@ export default function Navbar() {
 
               <div>
                 <span className="block text-[8px] font-bold uppercase tracking-[0.2em] text-white/60">
-                  West Wickham
+                  Isleworth
                 </span>
 
                 <span className="block text-xs font-black uppercase">
-                  Superguard Services
+                  SuperGuard Isleworth
                 </span>
               </div>
             </Link>
@@ -2134,7 +2561,7 @@ export default function Navbar() {
 
             <h2 className="mt-2 max-w-sm text-3xl font-black leading-[1.05] tracking-tight">
               Pest control for homes and businesses in{" "}
-              <span className="text-white/60">West Wickham.</span>
+              <span className="text-white/60">Isleworth.</span>
             </h2>
           </div>
 
@@ -2204,8 +2631,8 @@ export default function Navbar() {
             </div>
 
             <div className="mt-4 flex items-center justify-between text-[8px] font-bold uppercase tracking-[0.15em] text-white/35">
-              <span>Superguard Services</span>
-              <span>West Wickham • London</span>
+              <span>SuperGuard Isleworth</span>
+              <span>Isleworth • London</span>
             </div>
           </div>
         </div>
@@ -2213,3 +2640,4 @@ export default function Navbar() {
     </>
   );
 }
+
